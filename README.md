@@ -2,7 +2,7 @@
 ```
 https://raw.githubusercontent.com/Hips13/info/refs/heads/main/all-scripts.sh
 ```
-`Cloudflare WARP` `Настройка подключения по SSH ключу`
+`install-warp.sh` `setup-ssh.sh`
 
 ---
 
