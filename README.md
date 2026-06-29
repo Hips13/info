@@ -2,7 +2,7 @@
 ```
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Hips13/info/refs/heads/main/all-scripts.sh)"
 ```
-`install-warp.sh` `setup-ssh.sh`
+`setup-ssh.sh` `install-warp.sh` `change-xray-config.sh`
 
 ---
 
