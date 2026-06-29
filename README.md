@@ -6,11 +6,11 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/Hips13/info/refs/heads/m
 
 ---
 
-# Установка и настройка Cloudflare WARP
-```
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/Hips13/info/refs/heads/main/scripts/install-warp.sh)"
-```
 # Настройка подключения по SSH ключу
+```
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/Hips13/info/refs/heads/main/scripts/setup-ssh.sh)"
+```
+# Установка и настройка Cloudflare WARP
 ```
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Hips13/info/refs/heads/main/scripts/install-warp.sh)"
 ```
