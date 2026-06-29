@@ -1,6 +1,6 @@
 # Все скрипты разом
 ```
-https://raw.githubusercontent.com/Hips13/info/refs/heads/main/all-scripts.sh
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/Hips13/info/refs/heads/main/all-scripts.sh)"
 ```
 `install-warp.sh` `setup-ssh.sh`
 
@@ -8,9 +8,14 @@ https://raw.githubusercontent.com/Hips13/info/refs/heads/main/all-scripts.sh
 
 # Установка и настройка Cloudflare WARP
 ```
-https://raw.githubusercontent.com/Hips13/info/refs/heads/main/scripts/install-warp.sh
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/Hips13/info/refs/heads/main/scripts/install-warp.sh)"
 ```
 # Настройка подключения по SSH ключу
 ```
-https://raw.githubusercontent.com/Hips13/info/refs/heads/main/scripts/install-warp.sh
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/Hips13/info/refs/heads/main/scripts/install-warp.sh)"
+```
+# Замена xray конфига
+добавлеине WARP (+ маршрутизация) и DNS
+```
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/Hips13/info/refs/heads/main/scripts/change-xray-config.sh)"
 ```
