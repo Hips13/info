@@ -17,6 +17,8 @@ yes | warp-cli registration new
 warp-cli mode proxy
 warp-cli connect
 
+sleep 3
+
 # Проверяем порты
 echo "Проверка запущенного сервиса:"
 sudo netstat -tulpn | grep warp-svc
