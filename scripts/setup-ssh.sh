@@ -21,7 +21,7 @@ chmod 600 ~/.ssh/authorized_keys
 
 # 3. Настройка параметров SSH в отдельном .conf файле
 echo "Настройка конфигурации SSH (отключение паролей, включение ключей)..."
-sudo bash -c 'cat > /etc/ssh/sshd_config.d/99-custom-security.conf <<EOF
+sudo bash -c 'cat > /etc/ssh/sshd_config.d/01-custom-security.conf <<EOF
 PubkeyAuthentication yes
 PasswordAuthentication no
 EOF'
