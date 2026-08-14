@@ -15,7 +15,13 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/Hips13/info/refs/heads/m
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Hips13/info/refs/heads/main/scripts/install-warp.sh)"
 ```
 # Замена xray конфига
-добавлеине WARP (+ маршрутизация) и DNS
+добавление WARP (+ маршрутизация) и DNS
 ```
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Hips13/info/refs/heads/main/scripts/change-xray-config.sh)"
 ```
+# Замена xray конфига
+добавление задачи в cron каждый вторник в 03:00 запуск apt update -y && apt upgrade -y && shutdown -r now 
+```
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/Hips13/info/refs/heads/main/scripts/update-restart.sh)"
+
+
