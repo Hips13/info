@@ -11,4 +11,7 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/Hips13/info/refs/heads/m
 echo "=== Обновление конфигурации Xray ==="
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Hips13/info/refs/heads/main/scripts/change-xray-config.sh)"
 
+echo "=== Добавление обновления и рестарт в cron ==="
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/Hips13/info/refs/heads/main/scripts/update-restart.sh)"
+
 echo "=== Все скрипты успешно выполнены! ==="
