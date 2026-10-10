@@ -1,10 +1,10 @@
 {
   "checked_date": "2026-10-09",
   "providers": [
-    {"name": "GeoHide", "doh": "https://geohide.ru/dns-query", "primary_ipv4": "37.230.192.51", "secondary_ipv4": "185.87.51.182", "source": "https://geohide.ru/", "note": "DoH проверен на первом сервере. Эти IPv4 предоставлены пользователем; их актуальность отдельно не проверена. При сомнении выбирайте DoH."},
-    {"name": "BezMezhau", "doh": "https://dns.bezmezhau.com/dns-query", "primary_ipv4": "143.20.64.55", "secondary_ipv4": "91.108.243.78", "source": "https://bezmezhau.com/", "note": "DoH и IPv4 подтверждены страницей провайдера; работа с Gemini в этой задаче не проверена."},
-    {"name": "Comss.one", "doh": "https://dns.comss.one/dns-query", "primary_ipv4": "83.220.169.155", "secondary_ipv4": "212.109.195.93", "source": "https://www.comss.ru/page.php?id=12918", "note": "Адреса опубликованы провайдером. Работу проверьте своим клиентом."},
-    {"name": "XBox DNS", "doh": "https://xbox-dns.ru/dns-query", "primary_ipv4": "111.88.96.54", "secondary_ipv4": "111.88.96.55", "source": "https://xbox-dns.ru/", "note": "Провайдер заявляет поддержку Gemini; работа здесь не проверена."},
-    {"name": "dns.malw.link", "doh": "https://dns.malw.link/dns-query", "primary_ipv4": "95.216.204.218", "secondary_ipv4": "80.253.249.40", "source": "https://info.dns.malw.link/", "note": "Провайдер указывает Gemini в списке; работа здесь не проверена."}
+    {"name": "GeoHide", "doh": "https://geohide.ru/dns-query", "primary_ipv4": "37.230.192.51", "secondary_ipv4": "185.87.51.182", "source": "https://geohide.ru/"},
+    {"name": "BezMezhau", "doh": "https://dns.bezmezhau.com/dns-query", "primary_ipv4": "143.20.64.55", "secondary_ipv4": "91.108.243.78", "source": "https://bezmezhau.com/"},
+    {"name": "Comss.one", "doh": "https://dns.comss.one/dns-query", "primary_ipv4": "83.220.169.155", "secondary_ipv4": "212.109.195.93", "source": "https://www.comss.ru/page.php?id=12918"},
+    {"name": "XBox DNS", "doh": "https://xbox-dns.ru/dns-query", "primary_ipv4": "111.88.96.54", "secondary_ipv4": "111.88.96.55", "source": "https://xbox-dns.ru/"},
+    {"name": "dns.malw.link", "doh": "https://dns.malw.link/dns-query", "primary_ipv4": "95.216.204.218", "secondary_ipv4": "80.253.249.40", "source": "https://info.dns.malw.link/"}
   ]
 }
