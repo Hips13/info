@@ -137,14 +137,14 @@ class MemoryChecks(TestCase):
             clock = [0]
             def read(path, *args, **kwargs):
                 if str(path).endswith('/children'):
-                    return '456' if clock[0] >= ready_after else ''
+                    return '456' if '/task/124/' in str(path) and clock[0] >= ready_after else ''
                 return 'xray-linux-amd64'
-            with mock_patch.dict(globals(), {'service_active': lambda s: True}), mock_patch.object(subprocess, 'run', return_value=types.SimpleNamespace(stdout='123')), mock_patch.object(time, 'sleep', side_effect=lambda seconds: clock.__setitem__(0, clock[0] + seconds)), mock_patch.object(Path, 'read_text', read):
+            with mock_patch.dict(globals(), {'service_active': lambda s: True}), mock_patch.object(subprocess, 'run', return_value=types.SimpleNamespace(stdout='123')), mock_patch.object(time, 'sleep', side_effect=lambda seconds: clock.__setitem__(0, clock[0] + seconds)), mock_patch.object(Path, 'read_text', read), mock_patch.object(Path, 'iterdir', return_value=[Path('/proc/123/task/123'), Path('/proc/123/task/124')]):
                 restart_service('x-ui')
             return clock[0]
-        self.assertEqual(run_case(12), 12)
-        self.assertEqual(run_case(29), 29)
+        self.assertEqual(run_case(3), 3)
+        self.assertEqual(run_case(4), 4)
         with self.assertRaises(Refuse):
-            run_case(31)
+            run_case(6)
 test_main(argv=['memory_checks'],verbosity=2)
 

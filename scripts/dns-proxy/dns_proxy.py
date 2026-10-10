@@ -19,7 +19,7 @@ from urllib.parse import urlsplit
 PROTOCOLS = {'vless', 'vmess', 'trojan', 'shadowsocks', 'socks', 'http', 'mixed'}
 NETWORKS = {'tcp', 'raw', 'ws', 'xhttp', 'grpc', 'httpupgrade', 'http', 'h2', 'kcp', 'quic'}
 FORMAT = 'dns-proxy-v1'
-VERSION = '0.2.3'
+VERSION = '0.2.4'
 
 class Refuse(Exception):
     pass
@@ -418,7 +418,7 @@ def ask(prompt, choices=None, default=None):
 
 def choose_provider(cfg, providers_path):
     providers = json.loads(Path(providers_path).read_text(encoding='utf-8-sig'))['providers']
-    print('\nКакой DNS-Proxy использовать?')
+    print('\nКакой DNS-Proxy использовать? (По умолчанию — для Gemini)')
     for i, provider in enumerate(providers, 1):
         print('%d — %s: %s' % (i, provider['name'], provider['doh']))
     custom = str(len(providers) + 1)
@@ -472,27 +472,32 @@ def service_active(service):
 def restart_service(service):
     print('Активация: перезапуск ' + service)
     subprocess.run(['systemctl', 'restart', service], check=True, timeout=90)
-    print('Ожидание запуска Xray: до 30 секунд')
+    print('Ожидание запуска Xray: до 5 секунд')
     # Refresh MainPID on every attempt: the panel may still be starting.
-    for attempt in range(30):
+    for attempt in range(5):
         if service_active(service):
             result = subprocess.run(['systemctl', 'show', service, '--property=MainPID', '--value'], capture_output=True, text=True, check=True, timeout=15)
             pid = result.stdout.strip()
             if pid.isdigit() and int(pid) > 0:
                 try:
-                    children = Path('/proc/%s/task/%s/children' % (pid, pid))
-                    for child in children.read_text().split():
+                    # Linux records children per creating thread, not per process.
+                    for thread in Path('/proc/%s/task' % pid).iterdir():
                         try:
-                            if 'xray' in Path('/proc/%s/comm' % child).read_text().lower():
-                                return
+                            child_pids = (thread / 'children').read_text().split()
                         except (FileNotFoundError, ProcessLookupError):
                             continue
+                        for child in child_pids:
+                            try:
+                                if 'xray' in Path('/proc/%s/comm' % child).read_text().lower():
+                                    return
+                            except (FileNotFoundError, ProcessLookupError):
+                                continue
                 except (FileNotFoundError, ProcessLookupError):
                     pass
         time.sleep(1)
     if not service_active(service):
-        raise Refuse('Сервис не запустился после активации за 30 секунд.')
-    raise Refuse('Панель запущена, но процесс Xray не подтверждён за 30 секунд. Требуется откат или диагностика.')
+        raise Refuse('Сервис не запустился после активации за 5 секунд.')
+    raise Refuse('Панель запущена, но процесс Xray не подтверждён за 5 секунд. Требуется откат или диагностика.')
 
 def install(c, cfg, args):
     if os.geteuid() != 0:
