@@ -132,5 +132,19 @@ class MemoryChecks(TestCase):
             self.assertEqual(chosen['dns_url'],expected)
             self.assertEqual(self.cfg['dns_url'],'https://geohide.ru/dns-query')
 
+    def test_delayed_xray_start_and_timeout(self):
+        def run_case(ready_after):
+            clock = [0]
+            def read(path, *args, **kwargs):
+                if str(path).endswith('/children'):
+                    return '456' if clock[0] >= ready_after else ''
+                return 'xray-linux-amd64'
+            with mock_patch.dict(globals(), {'service_active': lambda s: True}), mock_patch.object(subprocess, 'run', return_value=types.SimpleNamespace(stdout='123')), mock_patch.object(time, 'sleep', side_effect=lambda seconds: clock.__setitem__(0, clock[0] + seconds)), mock_patch.object(Path, 'read_text', read):
+                restart_service('x-ui')
+            return clock[0]
+        self.assertEqual(run_case(12), 12)
+        self.assertEqual(run_case(29), 29)
+        with self.assertRaises(Refuse):
+            run_case(31)
 test_main(argv=['memory_checks'],verbosity=2)
 

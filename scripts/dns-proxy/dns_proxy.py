@@ -19,7 +19,7 @@ from urllib.parse import urlsplit
 PROTOCOLS = {'vless', 'vmess', 'trojan', 'shadowsocks', 'socks', 'http', 'mixed'}
 NETWORKS = {'tcp', 'raw', 'ws', 'xhttp', 'grpc', 'httpupgrade', 'http', 'h2', 'kcp', 'quic'}
 FORMAT = 'dns-proxy-v1'
-VERSION = '0.2.1'
+VERSION = '0.2.2'
 
 class Refuse(Exception):
     pass
@@ -473,23 +473,27 @@ def service_active(service):
 def restart_service(service):
     print('Активация: перезапуск ' + service)
     subprocess.run(['systemctl', 'restart', service], check=True, timeout=90)
-    time.sleep(2)
+    print('Ожидание запуска Xray: до 30 секунд')
+    # Refresh MainPID on every attempt: the panel may still be starting.
+    for attempt in range(30):
+        if service_active(service):
+            result = subprocess.run(['systemctl', 'show', service, '--property=MainPID', '--value'], capture_output=True, text=True, check=True, timeout=15)
+            pid = result.stdout.strip()
+            if pid.isdigit() and int(pid) > 0:
+                try:
+                    children = Path('/proc/%s/task/%s/children' % (pid, pid))
+                    for child in children.read_text().split():
+                        try:
+                            if 'xray' in Path('/proc/%s/comm' % child).read_text().lower():
+                                return
+                        except (FileNotFoundError, ProcessLookupError):
+                            continue
+                except (FileNotFoundError, ProcessLookupError):
+                    pass
+        time.sleep(1)
     if not service_active(service):
-        raise Refuse('Сервис не запустился после активации.')
-    # Check that the panel actually started its Xray child, not only the service shell.
-    result = subprocess.run(['systemctl', 'show', service, '--property=MainPID', '--value'], capture_output=True, text=True, check=True, timeout=15)
-    pid = result.stdout.strip()
-    if pid.isdigit() and int(pid) > 0:
-        children = Path('/proc/%s/task/%s/children' % (pid, pid))
-        for attempt in range(5):
-            try:
-                pids = children.read_text().split()
-                if any('xray' in Path('/proc/%s/comm' % child).read_text().lower() for child in pids):
-                    return
-            except (FileNotFoundError, ProcessLookupError):
-                pass
-            time.sleep(1)
-    raise Refuse('Панель запущена, но процесс Xray не подтверждён. Требуется откат или диагностика.')
+        raise Refuse('Сервис не запустился после активации за 30 секунд.')
+    raise Refuse('Панель запущена, но процесс Xray не подтверждён за 30 секунд. Требуется откат или диагностика.')
 
 def install(c, cfg, args):
     if os.geteuid() != 0:

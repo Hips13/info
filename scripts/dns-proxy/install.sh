@@ -2,14 +2,14 @@
 # Download a reviewed, pinned release and launch its interactive installer.
 set -Eeuo pipefail
 umask 077
-repo='Hips13/info'
-ref='main'
+repo=''
+ref='v0.2.2'
 action='install'
 usage() {
   cat <<'EOF'
-Usage: sudo bash install.sh --repo OWNER/REPO [--ref main] [-- ACTION ARGS...]
+Usage: sudo bash install.sh --repo OWNER/REPO [--ref v0.2.2] [-- ACTION ARGS...]
 Default action: install (interactive selection, preview, apply, restart, site check/rollback).
-Example read-only preview: sudo bash install.sh --repo OWNER/REPO --ref main -- dry-run
+Example read-only preview: sudo bash install.sh --repo OWNER/REPO --ref v0.2.2 -- dry-run
 No packages are installed. Dependencies: bash, curl, python3, sha256sum, systemctl.
 EOF
 }
@@ -30,7 +30,7 @@ for tool in curl python3 sha256sum systemctl mktemp install cmp; do
 done
 if (($#)); then action="$1"; shift; fi
 case "$action" in install|dry-run|apply|verify|rollback) ;; *) echo 'Unknown patch action.' >&2; exit 2;; esac
-base="https://raw.githubusercontent.com/${repo}/${ref}/scripts/dns-proxy"
+base="https://raw.githubusercontent.com/${repo}/${ref}"
 stage=$(mktemp -d /var/tmp/dns-proxy-download.XXXXXXXX)
 cleanup() {
   # Only our freshly allocated, fixed-prefix temporary directory is removed.

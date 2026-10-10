@@ -23,13 +23,13 @@
 
 ## 2. Создать закреплённый релиз
 
-На странице репозитория откройте Releases → Create a new release. Создайте новый тег **v0.2.1** на коммите с загруженными файлами. Назовите релиз `dns-proxy v0.2.1` и опубликуйте его.
+На странице репозитория откройте Releases → Create a new release. Создайте новый тег **v0.2.2** на коммите с загруженными файлами. Назовите релиз `dns-proxy v0.2.2` и опубликуйте его.
 
 Проверьте в браузере:
 
 ```text
-https://raw.githubusercontent.com/OWNER/REPO/v0.2.1/install.sh
-https://raw.githubusercontent.com/OWNER/REPO/v0.2.1/SHA256SUMS
+https://raw.githubusercontent.com/OWNER/REPO/v0.2.2/install.sh
+https://raw.githubusercontent.com/OWNER/REPO/v0.2.2/SHA256SUMS
 ```
 
 Замените OWNER/REPO реальными значениями. Должен отображаться текст файлов, не 404. Не передвигайте опубликованный тег на другой коммит. Для исправлений выпускайте новую версию.
@@ -51,7 +51,7 @@ $manifestLines = foreach ($payloadFile in $payloadFiles) {
 
 ## 3. Передать ссылку для совместной проверки
 
-Пришлите в чат URL опубликованного репозитория и тег v0.2.1. Я проверю доступность файлов и соответствие хешей до запуска на сервере.
+Пришлите в чат URL опубликованного репозитория и тег v0.2.2. Я проверю доступность файлов и соответствие хешей до запуска на сервере.
 
 На втором сервере в этой задаче выполнялись только аудит и dry-run. Патч там не применялся, исходные DNS и sniffing сохранились. Поэтому предварительно откатывать его сейчас не нужно. Не выполняйте откат по чужой или отсутствующей записи.
 
@@ -71,8 +71,8 @@ $manifestLines = foreach ($payloadFile in $payloadFiles) {
 Команды выполняются на целевом Linux-сервере в SSH-терминале:
 
 ```bash
-curl -fL https://raw.githubusercontent.com/OWNER/REPO/v0.2.1/install.sh -o dns-proxy-install.sh
-sudo bash dns-proxy-install.sh --repo OWNER/REPO --ref v0.2.1
+curl -fL https://raw.githubusercontent.com/OWNER/REPO/v0.2.2/install.sh -o dns-proxy-install.sh
+sudo bash dns-proxy-install.sh --repo OWNER/REPO --ref v0.2.2
 ```
 
 Если вошли как root, sudo можно убрать. Установщик:
