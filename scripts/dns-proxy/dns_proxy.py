@@ -19,7 +19,7 @@ from urllib.parse import urlsplit
 PROTOCOLS = {'vless', 'vmess', 'trojan', 'shadowsocks', 'socks', 'http', 'mixed'}
 NETWORKS = {'tcp', 'raw', 'ws', 'xhttp', 'grpc', 'httpupgrade', 'http', 'h2', 'kcp', 'quic'}
 FORMAT = 'dns-proxy-v1'
-VERSION = '0.2.2'
+VERSION = '0.2.3'
 
 class Refuse(Exception):
     pass
@@ -426,7 +426,6 @@ def choose_provider(cfg, providers_path):
     selected = ask('Вариант [1]: ', {str(i) for i in range(1, len(providers) + 2)}, '1')
     if selected != custom:
         provider = providers[int(selected) - 1]
-        print(provider['note'])
         print('Источник адресов: ' + provider['source'])
         if provider.get('primary_ipv4'):
             print('1 — DoH: полный HTTPS URL (рекомендуется)')

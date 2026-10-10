@@ -124,7 +124,7 @@ class MemoryChecks(TestCase):
             with self.assertRaises(Refuse):install(self.c,self.cfg,self.args)
         self.assertEqual(before,self.snap());self.assertEqual(len(calls),2)
     def test_provider_menu_presets_custom_and_bad_input(self):
-        catalog={'providers':[{'name':'Example','doh':'https://example.org/dns-query','primary_ipv4':'143.20.64.55','secondary_ipv4':'91.108.243.78','note':'sample','source':'https://example.org/'},{'name':'Other','doh':'https://other.example/dns-query','note':'sample','source':'https://other.example/'}]}
+        catalog={'providers':[{'name':'Example','doh':'https://example.org/dns-query','primary_ipv4':'143.20.64.55','secondary_ipv4':'91.108.243.78','source':'https://example.org/'},{'name':'Other','doh':'https://other.example/dns-query','source':'https://other.example/'}]}
         for inputs,expected in [(['1','1'],'https://example.org/dns-query'),(['1','2'],'143.20.64.55'),(['3','1','dns.example','https://dns.bezmezhau.com/dns-query'],'https://dns.bezmezhau.com/dns-query'),(['3','2','143.20.64.55,91.108.243.78','143.20.64.55'],'143.20.64.55')]:
             answers=iter(inputs)
             with mock_patch.dict(globals(),{'ask':lambda *a:next(answers)}),mock_patch.object(Path,'read_text',return_value=encode(catalog)):
