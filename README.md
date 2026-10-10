@@ -19,4 +19,7 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/Hips13/info/refs/heads/m
 ```
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Hips13/info/refs/heads/main/scripts/setup-ssh.sh)"
 ```
-
+# Добавление DNS-Proxy
+```
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/Hips13/info/refs/heads/main/scripts/dns-proxy.sh)"
+```
