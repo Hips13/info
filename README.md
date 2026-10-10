@@ -1,4 +1,4 @@
-# Все скрипты разом
+# WARP + Cron + SSH
 ```
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Hips13/info/refs/heads/main/all-scripts.sh)"
 ```
