@@ -418,7 +418,7 @@ def ask(prompt, choices=None, default=None):
 
 def choose_provider(cfg, providers_path):
     providers = json.loads(Path(providers_path).read_text(encoding='utf-8-sig'))['providers']
-    print('\nКакой DNS-Proxy использовать? (По умолчанию — для Gemini)')
+    print('\nКакой DNS-Proxy использовать?')
     for i, provider in enumerate(providers, 1):
         print('%d — %s: %s' % (i, provider['name'], provider['doh']))
     custom = str(len(providers) + 1)
