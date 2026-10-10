@@ -10,6 +10,11 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/Hips13/info/refs/heads/m
 ```
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Hips13/info/refs/heads/main/scripts/install-warp.sh)"
 ```
+WARP + правки Xray
+```
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/Hips13/info/refs/heads/main/scripts/warp_xray.sh)"
+```
+
 # Обновление и рестарт в cron
 добавление задачи в cron каждый вторник в 03:00 запуск apt update -y && apt upgrade -y && shutdown -r now 
 ```
