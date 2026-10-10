@@ -1,0 +1,7 @@
+{
+  "dns_url": "https://geohide.ru/dns-query",
+  "geosite": "google-gemini",
+  "direct_tag": "direct",
+  "regular_dns": ["1.1.1.1", "8.8.8.8"],
+  "timeout_ms": 4000
+}
